@@ -10,6 +10,7 @@ import {
   Title,
   Button,
   ActivityIndicator,
+  useTheme,
 } from 'react-native-paper';
 import {fetchOneFilm, getImagePath} from '../services';
 import {toggleFavorite} from '../redux/favoritesSlice';
@@ -30,6 +31,8 @@ export default function DetailsScreen() {
     ? 'heart'
     : 'heart-outline';
   const isFocused = useIsFocused();
+
+  const theme = useTheme();
 
   useEffect(() => {
     try {
@@ -73,6 +76,7 @@ export default function DetailsScreen() {
             style={{justifyContent: 'space-between', paddingHorizontal: 10}}>
             <IconButton
               icon={iconName}
+              animated={true}
               size={25}
               color="red"
               onPress={() => dispatch(toggleFavorite(film))}
@@ -84,15 +88,20 @@ export default function DetailsScreen() {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'space-evenly',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
               }}>
               {film.genres.map((genre, index) => (
                 <Button
                   mode="outlined"
-                  compact
+                  compact={true}
                   key={index}
-                  style={{marginHorizontal: 2, borderRadius: 20}}
-                  theme={{roundness: 3}}>
+                  style={{
+                    margin: 5,
+                    borderRadius: 20,
+                    borderColor: theme.colors.accent,
+                  }}
+                  color={theme.colors.accent}>
                   {genre.name}
                 </Button>
               ))}

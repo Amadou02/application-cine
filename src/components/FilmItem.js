@@ -36,6 +36,7 @@ export default function FilmItem({film}) {
           <IconButton
             icon={iconName}
             color="red"
+            animated={true}
             size={25}
             onPress={() => {
               dispatch(toggleFavorite(item));
